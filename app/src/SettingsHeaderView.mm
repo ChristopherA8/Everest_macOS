@@ -8,7 +8,7 @@
     if (self) {
       _headerImageView = [[NSImageView alloc] init];
       _headerImageView.translatesAutoresizingMaskIntoConstraints = NO;
-      _headerImageView.image = [[NSImage alloc] initWithContentsOfFile:@"/Users/chris/Dev/macOS_tweaks/Everest/app/header.png"];
+      _headerImageView.image = [NSImage imageNamed:@"header"];
 
       [self addSubview:_headerImageView];
 
