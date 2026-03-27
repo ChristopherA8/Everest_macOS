@@ -93,11 +93,26 @@ uninstall:
 	@sudo rm -f $(INSTALL_PATH)
 	@sudo rm -f $(WHITELIST_DEST)
 	@echo "Uninstalled $(DYLIB_NAME) and whitelist"
+	@sudo rm -rf ~/Library/Application\ Support/EverestSettings
 
 app:
 	@mkdir -p app/dist
 	@clang++ app/src/*.mm -framework Cocoa -o app/dist/main
 	@clear
+
+test:
+	@make app
 	@./app/dist/main
+
+package:
+	@rm -rf app/dist
+	@make app
+	@mkdir -p app/dist/Everest.app/Contents/MacOS
+	@mkdir -p app/dist/Everest.app/Contents/Resources
+	@cp app/dist/main app/dist/Everest.app/Contents/MacOS/Everest
+	@chmod +x app/dist/Everest.app/Contents/MacOS/Everest
+	@cp app/Info.plist app/dist/Everest.app/Contents/
+	@cp app/AppIcon.icns app/dist/Everest.app/Contents/Resources/
+	@cp app/header.png app/dist/Everest.app/Contents/Resources/
 
 .PHONY: all clean install uninstall app
