@@ -101,8 +101,8 @@ app:
 	@clear
 
 test:
-	@make app
-	@./app/dist/main
+	@make package
+	@open app/dist/Everest.app
 
 package:
 	@rm -rf app/dist
@@ -115,4 +115,4 @@ package:
 	@cp app/AppIcon.icns app/dist/Everest.app/Contents/Resources/
 	@cp app/header.png app/dist/Everest.app/Contents/Resources/
 
-.PHONY: all clean install uninstall app
+.PHONY: all clean install uninstall app test package
