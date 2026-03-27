@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN"
+ "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+
+<plist version="1.0">
+<dict>
+
+    <key>CFBundleName</key>
+    <string>Everest</string>
+
+    <key>CFBundleDisplayName</key>
+    <string>Everest</string>
+
+    <key>CFBundleExecutable</key>
+    <string>Everest</string>
+
+    <key>CFBundleIdentifier</key>
+    <string>com.christopher.everest-prefs</string>
+
+    <key>CFBundleVersion</key>
+    <string>0.0.2</string>
+
+    <key>CFBundleShortVersionString</key>
+    <string>0.0.2</string>
+
+    <key>CFBundlePackageType</key>
+    <string>APPL</string>
+
+    <key>LSMinimumSystemVersion</key>
+    <string>15.0</string>
+
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+
+    <key>NSPrincipalClass</key>
+    <string>NSApplication</string>
+
+</dict>
+</plist>
