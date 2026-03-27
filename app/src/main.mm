@@ -12,18 +12,14 @@ int main(int argc, const char * argv[]) {
         NSApplication *app = [NSApplication sharedApplication];
         [app setActivationPolicy:NSApplicationActivationPolicyAccessory];
 
-        MainWindow *window = [[MainWindow alloc] initWithContentRect:CGRectMake(0, 0, 400, 200)];
+        MainWindow *window = [[MainWindow alloc] initWithContentRect:CGRectMake(200, 800, 100, 100)];
         
         [window setOpaque:NO];
         [window setBackgroundColor:[NSColor clearColor]];
-        [window setTitle:@"test"];
-        [window setLevel:NSFloatingWindowLevel];
+        [window setTitle:@"Everest Settings"];
+        [window setLevel:NSNormalWindowLevel];
         [window setCollectionBehavior:NSWindowCollectionBehaviorDefault];
-        // [window setIgnoresMouseEvents:YES];
         [window makeKeyAndOrderFront:nil];
-
-        // NSVisualEffectView *blurEffectView = [[NSVisualEffectView alloc] initWithFrame:[window frame]];
-        // blurEffectView.
 
         ViewController *viewController = [[ViewController alloc] init];
         [window setContentViewController:viewController];

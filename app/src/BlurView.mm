@@ -23,7 +23,7 @@
       ]];
 
       [self.layer setBackgroundColor:[NSColor blackColor].CGColor];
-      [self setAlphaValue:0.5];
+      [self setAlphaValue:0.97];
    }
    return self;
 }

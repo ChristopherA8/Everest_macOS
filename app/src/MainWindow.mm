@@ -1,15 +1,22 @@
 #include "MainWindow.hh"
 
 @implementation MainWindow
+
 - (id)initWithContentRect:(NSRect)rect {
     self = [super initWithContentRect:rect
                             styleMask:(NSWindowStyleMaskTitled |
-                                       NSWindowStyleMaskResizable)
+                                       NSWindowStyleMaskResizable |
+                                       NSWindowStyleMaskClosable)
                               backing:NSBackingStoreBuffered
                                 defer:NO];
     if (self) {
-        // custom window setup here
+        self.delegate = self;
     }
     return self;
 }
+
+- (void)windowWillClose:(NSNotification *)notification {
+    [NSApp terminate:nil];
+}
+
 @end
