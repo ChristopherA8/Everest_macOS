@@ -64,6 +64,16 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             scale.removedOnCompletion = YES;
 
             [layer addAnimation:scale forKey:@"customScale"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@3]) {
+            CAKeyframeAnimation *scale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+            scale.values = @[@1.0, @0.0];
+            scale.keyTimes = @[@0, @1];
+            scale.duration = 0.6;
+            scale.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            scale.fillMode = kCAFillModeForwards;
+            scale.removedOnCompletion = YES;
+
+            [layer addAnimation:scale forKey:@"customScale"];
         }
     }
 

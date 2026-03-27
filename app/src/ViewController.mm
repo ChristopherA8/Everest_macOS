@@ -128,7 +128,7 @@
 
       cell.titleLabel.stringValue = @"Animation";
       [cell.popUp removeAllItems];
-      [cell.popUp addItemsWithTitles:@[@"Jiggle", @"Mode", @":)"]];
+      [cell.popUp addItemsWithTitles:@[@"None", @"Bounce", @"Bounce in place", @"Shrink"]];
       [cell.popUp selectItemAtIndex:savedIndex];
       [cell.popUp setTarget:self];
       [cell.popUp setAction:@selector(dropdownChanged:)];
