@@ -93,4 +93,10 @@ uninstall:
 	@sudo rm -f $(BLACKLIST_DEST)
 	@echo "Uninstalled $(DYLIB_NAME) and blacklist"
 
-.PHONY: all clean install uninstall
+app:
+	@mkdir -p app/dist
+	@clang++ app/src/*.mm -framework Cocoa -o app/dist/main
+	@clear
+	@./app/dist/main
+
+.PHONY: all clean install uninstall app
