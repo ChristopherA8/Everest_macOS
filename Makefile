@@ -35,8 +35,8 @@ DYLIB_OBJECTS = $(DYLIB_SOURCES:%.m=$(BUILD_DIR)/%.o)
 
 # Installation targets
 INSTALL_PATH = $(INSTALL_DIR)/$(DYLIB_NAME)
-BLACKLIST_SOURCE = lib$(PROJECT).dylib.blacklist
-BLACKLIST_DEST = $(INSTALL_DIR)/lib$(PROJECT).dylib.blacklist
+WHITELIST_SOURCE = lib$(PROJECT).dylib.whitelist
+WHITELIST_DEST = $(INSTALL_DIR)/lib$(PROJECT).dylib.whitelist
 
 # Dylib settings
 DYLIB_FLAGS = -dynamiclib \
@@ -73,14 +73,15 @@ install: $(BUILD_DIR)/$(DYLIB_NAME)
 	sudo mkdir -p $(INSTALL_DIR)
 	# Install the tweak's dylib where injection takes place.
 	sudo install -m 755 $(BUILD_DIR)/$(DYLIB_NAME) $(INSTALL_DIR)
-	@if [ -f $(BLACKLIST_SOURCE) ]; then \
-		sudo cp $(BLACKLIST_SOURCE) $(BLACKLIST_DEST); \
-		sudo chmod 644 $(BLACKLIST_DEST); \
-		echo "Installed $(DYLIB_NAME) and blacklist"; \
+	@if [ -f $(WHITELIST_SOURCE) ]; then \
+		sudo cp $(WHITELIST_SOURCE) $(WHITELIST_DEST); \
+		sudo chmod 644 $(WHITELIST_DEST); \
+		echo "Installed $(DYLIB_NAME) and whitelist"; \
 	else \
-		echo "Warning: $(BLACKLIST_SOURCE) not found"; \
+		echo "Warning: $(WHITELIST_SOURCE) not found"; \
 		echo "Installed $(DYLIB_NAME)"; \
 	fi
+	@killall Dock
 
 # Clean build files
 clean:
@@ -90,8 +91,8 @@ clean:
 # Uninstall
 uninstall:
 	@sudo rm -f $(INSTALL_PATH)
-	@sudo rm -f $(BLACKLIST_DEST)
-	@echo "Uninstalled $(DYLIB_NAME) and blacklist"
+	@sudo rm -f $(WHITELIST_DEST)
+	@echo "Uninstalled $(DYLIB_NAME) and whitelist"
 
 app:
 	@mkdir -p app/dist
