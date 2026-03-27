@@ -25,7 +25,7 @@ PUBLIC_FRAMEWORKS = -framework Foundation -framework AppKit -framework QuartzCor
 PROJECT = everest
 DYLIB_NAME = lib$(PROJECT).dylib
 BUILD_DIR = build
-SOURCE_DIR = .
+SOURCE_DIR = tweak
 INSTALL_DIR = /var/ammonia/core/tweaks
 
 # Source files
@@ -44,9 +44,6 @@ DYLIB_FLAGS = -dynamiclib \
               -compatibility_version 1.0.0 \
               -current_version 1.0.0
 
-# Linker flags
-# LDFLAGS = -Wl,-undefined,dynamic_lookup
-
 # Default target
 all: clean $(BUILD_DIR)/$(DYLIB_NAME)
 
@@ -60,14 +57,6 @@ $(BUILD_DIR):
 $(BUILD_DIR)/%.o: %.m | $(BUILD_DIR)
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) $(ARCHS) -c $< -o $@
-
-# Link dylib
-# $(BUILD_DIR)/$(DYLIB_NAME): $(DYLIB_OBJECTS)
-# 	$(CC) $(DYLIB_FLAGS) $(LDFLAGS) $(ARCHS) $(DYLIB_OBJECTS) -o $@ \
-# 	-F$(FRAMEWORK_PATH) \
-# 	-F$(PRIVATE_FRAMEWORK_PATH) \
-# 	$(PUBLIC_FRAMEWORKS) \
-# 	-L$(SDKROOT)/usr/lib
 
 # Link dylib
 $(BUILD_DIR)/$(DYLIB_NAME): $(DYLIB_OBJECTS)
