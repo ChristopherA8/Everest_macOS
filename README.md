@@ -14,7 +14,11 @@
 <div class="clear"></div>
 
 ## Preview
-![preview](https://github.com/user-attachments/assets/dfa57017-b862-4a68-94f3-b90f83c99ee7)
+<p align="center">
+	<img src="https://github.com/user-attachments/assets/dfa57017-b862-4a68-94f3-b90f83c99ee7" />
+	<img width="302" height="278" src="https://github.com/user-attachments/assets/4add66a1-0558-4953-81fd-d7a922ea85b1" />
+</p>
+
 
 ## Installation
 <ol>
