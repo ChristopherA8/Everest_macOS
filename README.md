@@ -18,16 +18,28 @@
 
 ## Installation
 <ol>
-	<li>Download the dylib and blacklist files from the latest release <b><a href="https://github.com/ChristopherA8/Everest_macOS/releases/latest">here</a></b></li>
-	<li>Move them to <code>/var/ammonia/core/tweaks</code></li>
+	<li>Download the dylib, blacklist and Everest.app.zip files from the latest release <b><a href="https://github.com/ChristopherA8/Everest_macOS/releases/latest">here</a></b></li>
+	<li>Move the dylib and blacklist files into <code>/var/ammonia/core/tweaks</code></li>
 	<li>Run <code>killall Dock</code></li>
-	<li>and profit!</li>
+	<li>Extract Everest.app from Everest.app.zip</li>
+	<li>Run <code>chmod +x '/path/to/file/Everest.app/Contents/MacOS/Everest'</code></li>
+	<li>Run <code>xattr -dr com.apple.quarantine '/path/to/Everest.app'</code> <b>or</b> open <i>System Settings>Privacy & Security>Open Anyways</i> when you go to open the app</li>
+	<li>Move Everest.app to the Applications folder if you wish</li>
+	<li>Enjoy wiggling app icons</li>
+</ol>
+
+## Uninstalling
+<ol>
+	<li>Download the <code>Makefile</code> from this repo and run <code>make uninstall</code></li>
+	<li>Delete Everest.app</li>
+	<li>and enjoy your boring app icons >:(</li>
 </ol>
 
 ## In Progress
 <ul>
 	<li>More Animations Coming</li>
 	<li>Preferences UI</li>
+	<li>.pkg for friendlier install process</li>
 </ul>
 <br>
 
