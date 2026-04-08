@@ -84,6 +84,103 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             scale.removedOnCompletion = YES;
 
             [layer addAnimation:scale forKey:@"customScale"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@5]) {
+            CABasicAnimation *transformRotationZAnimation = [CABasicAnimation animation];
+            transformRotationZAnimation.duration = 0.5;
+            transformRotationZAnimation.fillMode = kCAFillModeForwards;
+            transformRotationZAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transformRotationZAnimation.removedOnCompletion = YES;
+            transformRotationZAnimation.keyPath = @"transform.rotation.z";
+            transformRotationZAnimation.toValue = @(12.56637061435917); // 720
+            // transformRotationZAnimation.toValue = @(18.84956); // 1080
+            transformRotationZAnimation.fromValue = @(0);
+
+            [layer addAnimation:transformRotationZAnimation forKey:@"customScale"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@6]) {
+            CABasicAnimation *transformRotationZAnimation = [CABasicAnimation animation];
+            transformRotationZAnimation.duration = 0.5;
+            transformRotationZAnimation.fillMode = kCAFillModeForwards;
+            transformRotationZAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transformRotationZAnimation.removedOnCompletion = YES;
+            transformRotationZAnimation.keyPath = @"transform.rotation.z";
+            // transformRotationZAnimation.toValue = @(12.56637061435917); // 720
+            transformRotationZAnimation.toValue = @(18.84956); // 1080
+            transformRotationZAnimation.fromValue = @(0);
+
+            [layer addAnimation:transformRotationZAnimation forKey:@"customScale"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@7]) {
+            CABasicAnimation *transformRotationZAnimation = [CABasicAnimation animation];
+            transformRotationZAnimation.duration = 0.5;
+            transformRotationZAnimation.fillMode = kCAFillModeForwards;
+            transformRotationZAnimation.removedOnCompletion = YES;
+            transformRotationZAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            transformRotationZAnimation.keyPath = @"transform.rotation.z";
+            transformRotationZAnimation.toValue = @(18.84955592153876);
+            transformRotationZAnimation.fromValue = @(0);
+
+            CABasicAnimation *positionYAnimation = [CABasicAnimation animation];
+            positionYAnimation.duration = 0.5;
+            positionYAnimation.fillMode = kCAFillModeForwards;
+            positionYAnimation.removedOnCompletion = YES;
+            positionYAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+            positionYAnimation.keyPath = @"transform.translation.y";
+            positionYAnimation.fromValue = @(0);
+            positionYAnimation.toValue = @(-80);
+
+            CABasicAnimation *transformScaleXyAnimation = [CABasicAnimation animation];
+            transformScaleXyAnimation.duration = 0.5;
+            transformScaleXyAnimation.fillMode = kCAFillModeForwards;
+            transformScaleXyAnimation.removedOnCompletion = YES;
+            transformScaleXyAnimation.timingFunction = [CAMediaTimingFunction functionWithControlPoints:0.7446 :0.173844 :0.972543 :0.07438];
+            transformScaleXyAnimation.keyPath = @"transform.scale.xy";
+            transformScaleXyAnimation.toValue = @(0);
+            transformScaleXyAnimation.fromValue = @(1);
+
+            [layer addAnimation:transformScaleXyAnimation forKey:@"transformScaleXyAnimation"];
+            [layer addAnimation:positionYAnimation forKey:@"positionYAnimation"];
+            [layer addAnimation:transformRotationZAnimation forKey:@"transformRotationZAnimation"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@8]) {
+            CASpringAnimation *transformRotationZAnimation = [CASpringAnimation animation];
+            transformRotationZAnimation.duration = 0.99321;
+            transformRotationZAnimation.fillMode = kCAFillModeForwards;
+            transformRotationZAnimation.removedOnCompletion = YES;
+            transformRotationZAnimation.keyPath = @"transform.rotation.z";
+            transformRotationZAnimation.toValue = @(6.283185307179586);
+            transformRotationZAnimation.fromValue = @(0);
+            transformRotationZAnimation.stiffness = 200;
+            transformRotationZAnimation.damping = 10;
+            transformRotationZAnimation.mass = 0.7;
+            transformRotationZAnimation.initialVelocity = 4;
+
+            [layer addAnimation:transformRotationZAnimation forKey:@"transformRotationZAnimation"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@9]) {
+            CALayer *newLayer = layer;
+            CGPoint oldOrigin = newLayer.frame.origin;
+
+            newLayer.anchorPoint = CGPointMake(0.5, 0.5);
+            newLayer.position = CGPointMake(oldOrigin.x + newLayer.bounds.size.width / 2.0, oldOrigin.y + newLayer.bounds.size.height / 2.0);
+
+            // Vertical collapse
+            CABasicAnimation *vertical = [CABasicAnimation animationWithKeyPath:@"transform.scale.y"];
+            vertical.fromValue = @1.0;
+            vertical.toValue = @0.02;
+            vertical.duration = 0.5;
+            vertical.fillMode = kCAFillModeForwards;
+            vertical.removedOnCompletion = YES;
+            vertical.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+            // Vertical collapse
+            CABasicAnimation *horizontal = [CABasicAnimation animationWithKeyPath:@"transform.scale.x"];
+            horizontal.fromValue = @1.0;
+            horizontal.toValue = @0.9;
+            // horizontal.toValue = @0.02;
+            horizontal.duration = 0.5;
+            horizontal.fillMode = kCAFillModeForwards;
+            horizontal.removedOnCompletion = YES;
+            horizontal.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+            [newLayer addAnimation:horizontal forKey:@"horizontal"];
+            [newLayer addAnimation:vertical forKey:@"vertical"];
         }
     }
 
