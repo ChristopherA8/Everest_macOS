@@ -52,8 +52,6 @@
 
 ## In Progress
 <ul>
-	<li>More Animations Coming</li>
-	<li>Preferences UI</li>
 	<li>.pkg for friendlier install process</li>
 </ul>
 <br>
