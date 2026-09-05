@@ -19,8 +19,19 @@
 	<img width="302" height="278" src="https://github.com/user-attachments/assets/4add66a1-0558-4953-81fd-d7a922ea85b1" />
 </p>
 
+## Installation - Plugin Playground
+<ol>
+	<li>Download the dylib, options file and Everest.app.zip files from the latest release <b><a href="https://github.com/ChristopherA8/Everest_macOS/releases/latest">here</a></b></li>
+	<li>Move the dylib and options files into <code>/opt/pluginplayground/tweaks</code></li>
+	<li>Run <code>killall Dock</code></li>
+	<li>Extract Everest.app from Everest.app.zip</li>
+	<li>Run <code>chmod +x '/path/to/file/Everest.app/Contents/MacOS/Everest'</code></li>
+	<li>Run <code>xattr -dr com.apple.quarantine '/path/to/Everest.app'</code> <b>or</b> open <i>System Settings>Privacy & Security>Open Anyways</i> when you go to open the app</li>
+	<li>Move Everest.app to the Applications folder if you wish</li>
+	<li>Enjoy wiggling app icons</li>
+</ol>
 
-## Installation
+## Installation - Ammonia (legacy)
 <ol>
 	<li>Download the dylib, blacklist and Everest.app.zip files from the latest release <b><a href="https://github.com/ChristopherA8/Everest_macOS/releases/latest">here</a></b></li>
 	<li>Move the dylib and blacklist files into <code>/var/ammonia/core/tweaks</code></li>
