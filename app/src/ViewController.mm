@@ -58,6 +58,26 @@
    self.scrollView.documentView = self.tableView;
    [self.view addSubview:self.scrollView];
 
+   self.previewLabel = [NSTextField labelWithString:@"Try it out!"];
+   self.previewLabel.translatesAutoresizingMaskIntoConstraints = NO;
+   self.previewLabel.font = [NSFont systemFontOfSize:15 weight:NSFontWeightMedium];
+   self.previewLabel.textColor = NSColor.secondaryLabelColor;
+   self.previewLabel.alignment = NSTextAlignmentCenter;
+   [self.view addSubview:self.previewLabel];
+
+   //###################
+   self.dockPreview = [[DockPreviewView alloc] initWithFrame:NSZeroRect];
+   self.dockPreview.translatesAutoresizingMaskIntoConstraints = NO;
+
+   NSString *path = self.plistPath;
+   self.dockPreview.animationProvider = ^NSInteger {
+      NSDictionary *d = [NSDictionary dictionaryWithContentsOfFile:path];
+      return [d[@"Animation"] integerValue];
+   };
+
+   [self.view addSubview:self.dockPreview];
+   //###################
+
    [self setupLayouts];
 }
 
@@ -96,7 +116,17 @@
       [self.scrollView.topAnchor constraintEqualToAnchor:self.headerView.bottomAnchor],
       [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
       [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-      [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+      // [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+      // [self.scrollView.bottomAnchor constraintEqualToAnchor:self.dockPreview.topAnchor],
+      [self.scrollView.bottomAnchor constraintEqualToAnchor:self.previewLabel.topAnchor constant:-8],
+
+      [self.previewLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
+      [self.previewLabel.bottomAnchor constraintEqualToAnchor:self.dockPreview.topAnchor constant:2],
+
+      [self.dockPreview.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+      [self.dockPreview.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+      [self.dockPreview.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
+      [self.dockPreview.heightAnchor constraintEqualToConstant:110],
    ]];
 }
 
@@ -128,7 +158,7 @@
 
       cell.titleLabel.stringValue = @"Animation";
       [cell.popUp removeAllItems];
-      [cell.popUp addItemsWithTitles:@[@"None", @"Bounce", @"Bounce in place", @"Shrink", @"Zoom", @"Spin", @"Spin Faster", @"Spin Down", @"Spring Spin", @"TV Shutdown"]];
+      [cell.popUp addItemsWithTitles:@[@"None", @"Random", @"Bounce", @"Bounce in place", @"Shrink", @"Zoom", @"Spin", @"Spin Faster", @"Spin Down", @"Spring Spin", @"TV Shutdown", @"Jelly", @"Card Flip", @"Wobble", @"Loop"]];
       [cell.popUp selectItemAtIndex:savedIndex];
       [cell.popUp setTarget:self];
       [cell.popUp setAction:@selector(dropdownChanged:)];

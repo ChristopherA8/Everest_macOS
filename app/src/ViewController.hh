@@ -1,4 +1,5 @@
 #include <AppKit/AppKit.h>
+#include "DockPreviewView.h"
 
 #include "BlurView.hh"
 #include "SettingsHeaderView.hh"
@@ -6,6 +7,8 @@
 #include "SettingsItem.hh"
 
 @interface ViewController : NSViewController <NSTableViewDataSource, NSTableViewDelegate>
+@property (nonatomic, strong) DockPreviewView *dockPreview;
+@property (nonatomic, strong) NSTextField *previewLabel;
 @property (retain) BlurView *blurView;
 @property (retain) NSString *plistPath;
 @property (retain) SettingsHeaderView *headerView;

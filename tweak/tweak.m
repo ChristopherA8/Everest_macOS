@@ -33,8 +33,21 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
         NSLog(@"[Tweak] tile has no layer property: %@", e);
     }
 
+    if ([dict[@"Animation"] isEqualToNumber:@1]) {
+        static uint32_t lastPick = 0;
+        uint32_t pick;
+        do {
+            pick = 2 + arc4random_uniform(13); // 2...14
+        } while (pick == lastPick);
+        lastPick = pick;
+
+        NSMutableDictionary *randomized = [dict mutableCopy];
+        randomized[@"Animation"] = @(pick);
+        dict = randomized;
+    }
+
     if (layer) {
-        if ([dict[@"Animation"] isEqualToNumber:@1]) {
+        if ([dict[@"Animation"] isEqualToNumber:@2]) {
             CAKeyframeAnimation *bounce = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
             bounce.values = @[@0, @-10, @10, @-5, @5, @0];
             bounce.keyTimes = @[@0, @0.2, @0.4, @0.6, @0.8, @1];
@@ -54,7 +67,7 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             group.removedOnCompletion = YES;
 
             [layer addAnimation:group forKey:@"customBounce"];
-        } else if ([dict[@"Animation"] isEqualToNumber:@2]) {
+        } else if ([dict[@"Animation"] isEqualToNumber:@3]) {
             CAKeyframeAnimation *scale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
             scale.values = @[@1.0, @1.1, @0.95, @1.05, @1.0];
             scale.keyTimes = @[@0, @0.2, @0.5, @0.8, @1];
@@ -64,7 +77,7 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             scale.removedOnCompletion = YES;
 
             [layer addAnimation:scale forKey:@"customScale"];
-        } else if ([dict[@"Animation"] isEqualToNumber:@3]) {
+        } else if ([dict[@"Animation"] isEqualToNumber:@4]) {
             CAKeyframeAnimation *scale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
             scale.values = @[@1.0, @0.0];
             scale.keyTimes = @[@0, @1];
@@ -74,7 +87,7 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             scale.removedOnCompletion = YES;
 
             [layer addAnimation:scale forKey:@"customScale"];
-        } else if ([dict[@"Animation"] isEqualToNumber:@4]) {
+        } else if ([dict[@"Animation"] isEqualToNumber:@5]) {
             CAKeyframeAnimation *scale = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
             scale.values = @[@1.0, @2.0, @0.0, @1.0];
             scale.keyTimes = @[@0, @0.5, @0.7, @1.0];
@@ -84,7 +97,7 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             scale.removedOnCompletion = YES;
 
             [layer addAnimation:scale forKey:@"customScale"];
-        } else if ([dict[@"Animation"] isEqualToNumber:@5]) {
+        } else if ([dict[@"Animation"] isEqualToNumber:@6]) {
             CABasicAnimation *transformRotationZAnimation = [CABasicAnimation animation];
             transformRotationZAnimation.duration = 0.5;
             transformRotationZAnimation.fillMode = kCAFillModeForwards;
@@ -96,7 +109,7 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             transformRotationZAnimation.fromValue = @(0);
 
             [layer addAnimation:transformRotationZAnimation forKey:@"customScale"];
-        } else if ([dict[@"Animation"] isEqualToNumber:@6]) {
+        } else if ([dict[@"Animation"] isEqualToNumber:@7]) {
             CABasicAnimation *transformRotationZAnimation = [CABasicAnimation animation];
             transformRotationZAnimation.duration = 0.5;
             transformRotationZAnimation.fillMode = kCAFillModeForwards;
@@ -108,7 +121,7 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             transformRotationZAnimation.fromValue = @(0);
 
             [layer addAnimation:transformRotationZAnimation forKey:@"customScale"];
-        } else if ([dict[@"Animation"] isEqualToNumber:@7]) {
+        } else if ([dict[@"Animation"] isEqualToNumber:@8]) {
             CABasicAnimation *transformRotationZAnimation = [CABasicAnimation animation];
             transformRotationZAnimation.duration = 0.5;
             transformRotationZAnimation.fillMode = kCAFillModeForwards;
@@ -139,7 +152,7 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             [layer addAnimation:transformScaleXyAnimation forKey:@"transformScaleXyAnimation"];
             [layer addAnimation:positionYAnimation forKey:@"positionYAnimation"];
             [layer addAnimation:transformRotationZAnimation forKey:@"transformRotationZAnimation"];
-        } else if ([dict[@"Animation"] isEqualToNumber:@8]) {
+        } else if ([dict[@"Animation"] isEqualToNumber:@9]) {
             CASpringAnimation *transformRotationZAnimation = [CASpringAnimation animation];
             transformRotationZAnimation.duration = 0.99321;
             transformRotationZAnimation.fillMode = kCAFillModeForwards;
@@ -153,7 +166,7 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
             transformRotationZAnimation.initialVelocity = 4;
 
             [layer addAnimation:transformRotationZAnimation forKey:@"transformRotationZAnimation"];
-        } else if ([dict[@"Animation"] isEqualToNumber:@9]) {
+        } else if ([dict[@"Animation"] isEqualToNumber:@10]) {
             CALayer *newLayer = layer;
             CGPoint oldOrigin = newLayer.frame.origin;
 
@@ -181,6 +194,83 @@ static void hook_handleDockEventAppLaunch(id self, SEL _cmd, id tile, BOOL alrea
 
             [newLayer addAnimation:horizontal forKey:@"horizontal"];
             [newLayer addAnimation:vertical forKey:@"vertical"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@11]) {
+            // Squash and stretch — classic cartoon jello, x and y scale inversely
+            NSArray *jellyTimes = @[@0, @0.15, @0.35, @0.55, @0.78, @1];
+
+            CAKeyframeAnimation *squashX = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.x"];
+            squashX.values = @[@1.0, @1.35, @0.75, @1.18, @0.92, @1.0];
+            squashX.keyTimes = jellyTimes;
+            squashX.duration = 0.7;
+            squashX.fillMode = kCAFillModeForwards;
+            squashX.removedOnCompletion = YES;
+            squashX.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+            CAKeyframeAnimation *squashY = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.y"];
+            squashY.values = @[@1.0, @0.70, @1.30, @0.85, @1.08, @1.0];
+            squashY.keyTimes = jellyTimes;
+            squashY.duration = 0.7;
+            squashY.fillMode = kCAFillModeForwards;
+            squashY.removedOnCompletion = YES;
+            squashY.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+            [layer addAnimation:squashX forKey:@"squashX"];
+            [layer addAnimation:squashY forKey:@"squashY"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@12]) {
+            // Card flip — width compresses through zero and back, twice
+            CAKeyframeAnimation *flip = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale.x"];
+            flip.values = @[@1.0, @0.0, @1.0, @0.0, @1.0];
+            flip.keyTimes = @[@0, @0.25, @0.5, @0.75, @1];
+            flip.duration = 0.65;
+            flip.fillMode = kCAFillModeForwards;
+            flip.removedOnCompletion = YES;
+            flip.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+            [layer addAnimation:flip forKey:@"cardFlip"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@13]) {
+            // Rubber-band shake — decaying horizontal jitter with a little counter-tilt
+            CAKeyframeAnimation *shake = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+            shake.values = @[@0, @-12, @10, @-7.5, @5.5, @-3, @1.5, @0];
+            shake.keyTimes = @[@0, @0.12, @0.27, @0.42, @0.57, @0.72, @0.87, @1];
+            shake.duration = 0.55;
+            shake.fillMode = kCAFillModeForwards;
+            shake.removedOnCompletion = YES;
+            shake.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+            CAKeyframeAnimation *tilt = [CAKeyframeAnimation animationWithKeyPath:@"transform.rotation.z"];
+            tilt.values = @[@0, @0.12, @(-0.10), @0.07, @(-0.05), @0.02, @0];
+            tilt.keyTimes = @[@0, @0.12, @0.27, @0.42, @0.57, @0.78, @1];
+            tilt.duration = 0.55;
+            tilt.fillMode = kCAFillModeForwards;
+            tilt.removedOnCompletion = YES;
+            tilt.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+            [layer addAnimation:shake forKey:@"rubberShake"];
+            [layer addAnimation:tilt forKey:@"rubberTilt"];
+        } else if ([dict[@"Animation"] isEqualToNumber:@14]) {
+            // Loop-the-loop — the icon rides a vertical circle while spinning once
+            NSArray *loopTimes = @[@0, @0.125, @0.25, @0.375, @0.5, @0.625, @0.75, @0.875, @1];
+
+            CAKeyframeAnimation *loopX = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+            loopX.values = @[@0, @7.07, @10, @7.07, @0, @(-7.07), @(-10), @(-7.07), @0];
+            loopX.keyTimes = loopTimes;
+
+            CAKeyframeAnimation *loopY = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
+            loopY.values = @[@0, @(-2.93), @(-10), @(-17.07), @(-20), @(-17.07), @(-10), @(-2.93), @0];
+            loopY.keyTimes = loopTimes;
+
+            CABasicAnimation *loopSpin = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+            loopSpin.fromValue = @(0);
+            loopSpin.toValue = @(2 * M_PI);
+
+            CAAnimationGroup *loop = [CAAnimationGroup animation];
+            loop.animations = @[loopX, loopY, loopSpin];
+            loop.duration = 0.8;
+            loop.fillMode = kCAFillModeForwards;
+            loop.removedOnCompletion = YES;
+            loop.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+
+            [layer addAnimation:loop forKey:@"loopTheLoop"];
         }
     }
 

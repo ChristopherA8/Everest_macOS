@@ -26,7 +26,8 @@ PROJECT = everest
 DYLIB_NAME = lib$(PROJECT).dylib
 BUILD_DIR = build
 SOURCE_DIR = tweak
-INSTALL_DIR = /var/ammonia/core/tweaks
+# INSTALL_DIR = /var/ammonia/core/tweaks (legacy)
+INSTALL_DIR = /opt/pluginplayground/tweaks
 
 # Source files
 DYLIB_SOURCES = $(SOURCE_DIR)/tweak.m
@@ -35,8 +36,10 @@ DYLIB_OBJECTS = $(DYLIB_SOURCES:%.m=$(BUILD_DIR)/%.o)
 
 # Installation targets
 INSTALL_PATH = $(INSTALL_DIR)/$(DYLIB_NAME)
-WHITELIST_SOURCE = lib$(PROJECT).dylib.whitelist
-WHITELIST_DEST = $(INSTALL_DIR)/lib$(PROJECT).dylib.whitelist
+# WHITELIST_SOURCE = lib$(PROJECT).dylib.whitelist
+# WHITELIST_DEST = $(INSTALL_DIR)/lib$(PROJECT).dylib.whitelist
+OPTIONS_SOURCE = lib$(PROJECT).dylib.options
+OPTIONS_DEST = $(INSTALL_DIR)/lib$(PROJECT).dylib.options
 
 # Dylib settings
 DYLIB_FLAGS = -dynamiclib \
@@ -73,12 +76,12 @@ install: $(BUILD_DIR)/$(DYLIB_NAME)
 	sudo mkdir -p $(INSTALL_DIR)
 	# Install the tweak's dylib where injection takes place.
 	sudo install -m 755 $(BUILD_DIR)/$(DYLIB_NAME) $(INSTALL_DIR)
-	@if [ -f $(WHITELIST_SOURCE) ]; then \
-		sudo cp $(WHITELIST_SOURCE) $(WHITELIST_DEST); \
-		sudo chmod 644 $(WHITELIST_DEST); \
+	@if [ -f $(OPTIONS_SOURCE) ]; then \
+		sudo cp $(OPTIONS_SOURCE) $(OPTIONS_DEST); \
+		sudo chmod 644 $(OPTIONS_DEST); \
 		echo "Installed $(DYLIB_NAME) and whitelist"; \
 	else \
-		echo "Warning: $(WHITELIST_SOURCE) not found"; \
+		echo "Warning: $(OPTIONS_SOURCE) not found"; \
 		echo "Installed $(DYLIB_NAME)"; \
 	fi
 	@killall Dock
@@ -91,13 +94,13 @@ clean:
 # Uninstall
 uninstall:
 	@sudo rm -f $(INSTALL_PATH)
-	@sudo rm -f $(WHITELIST_DEST)
-	@echo "Uninstalled $(DYLIB_NAME) and whitelist"
+	@sudo rm -f $(OPTIONS_DEST)
+	@echo "Uninstalled $(DYLIB_NAME) and options"
 	@sudo rm -rf ~/Library/Application\ Support/EverestSettings
 
 app:
 	@mkdir -p app/dist
-	@clang++ app/src/*.mm -framework Cocoa -o app/dist/main
+	@$(CXX) $(CFLAGS) app/src/*.mm -framework Cocoa -framework QuartzCore -o app/dist/main
 	@clear
 
 test:
