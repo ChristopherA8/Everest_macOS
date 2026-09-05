@@ -2,7 +2,7 @@
 	<source media="(prefers-color-scheme: light)" srcset="https://repo.chr1s.dev/assets/Everest/everest_dark-min.png">
 	<img align="left" height="120" src="https://repo.chr1s.dev/assets/Everest/everest_light-min.png" alt="Everest logo" style="float: left;"/>
 </picture>
-<h3 align="right">App launch animations for MacOS, <br>built for Ammonia</h3>
+<h3 align="right">App launch animations for MacOS, <br>built for <a href="https://github.com/CoreBedtime/playground">Playground</a></h3>
 
 <p align="right" >
   <strong><a href="https://github.com/ChristopherA8/everest/graphs/contributors">Contributors</a></strong>
