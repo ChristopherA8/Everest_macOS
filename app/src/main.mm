@@ -16,10 +16,12 @@ int main(int argc, const char * argv[]) {
         
         [window setOpaque:NO];
         [window setBackgroundColor:[NSColor clearColor]];
-        [window setTitle:@"Everest Settings"];
+        // [window setTitle:@"Everest Settings"];
         [window setLevel:NSNormalWindowLevel];
         [window setCollectionBehavior:NSWindowCollectionBehaviorDefault];
         [window makeKeyAndOrderFront:nil];
+        window.titlebarAppearsTransparent = YES;
+        window.styleMask |= NSWindowStyleMaskFullSizeContentView;
 
         ViewController *viewController = [[ViewController alloc] init];
         [window setContentViewController:viewController];

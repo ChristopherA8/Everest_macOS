@@ -5,7 +5,6 @@
 - (id)initWithContentRect:(NSRect)rect {
     self = [super initWithContentRect:rect
                             styleMask:(NSWindowStyleMaskTitled |
-                                       NSWindowStyleMaskResizable |
                                        NSWindowStyleMaskClosable)
                               backing:NSBackingStoreBuffered
                                 defer:NO];
@@ -13,6 +12,18 @@
         self.delegate = self;
     }
     return self;
+}
+
+- (void)setContentViewController:(NSViewController *)contentViewController {
+    [super setContentViewController:contentViewController];
+
+    NSSize size = contentViewController.preferredContentSize;
+    if (size.width > 0 && size.height > 0) {
+        [self setContentSize:size];
+        self.contentMinSize = size;
+        self.contentMaxSize = size;
+    }
+    [self center];
 }
 
 - (void)windowWillClose:(NSNotification *)notification {

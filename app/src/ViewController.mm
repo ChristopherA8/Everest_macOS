@@ -30,33 +30,25 @@
    self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
    [self.view addSubview:self.headerView];
 
-   // Create scroll view
-   self.scrollView = [[NSScrollView alloc] init];
-   self.scrollView.translatesAutoresizingMaskIntoConstraints = NO;
-   self.scrollView.drawsBackground = NO;
-   self.scrollView.backgroundColor = NSColor.clearColor;
-   self.scrollView.contentView.drawsBackground = NO;
-   self.scrollView.contentView.layer.backgroundColor = NSColor.clearColor.CGColor;
-   self.scrollView.hasVerticalScroller = YES;
-
    // Create table view
-   self.tableView = [[SettingsTableView alloc] initWithFrame:self.scrollView.bounds];
+   self.tableView = [[SettingsTableView alloc] initWithFrame:NSZeroRect];
+   self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
    self.tableView.delegate = self;
    self.tableView.dataSource = self;
    self.tableView.headerView = nil;
    self.tableView.rowHeight = 42;
    self.tableView.style = NSTableViewStyleInset;
    self.tableView.backgroundColor = NSColor.clearColor;
-   self.tableView.enclosingScrollView.drawsBackground = NO;
    self.tableView.selectionHighlightStyle = NSTableViewSelectionHighlightStyleNone;
 
-   // Add a column
    NSTableColumn *column = [[NSTableColumn alloc] initWithIdentifier:@"SettingsColumn"];
    column.title = @"Settings Column Title";
+   column.width = 420;
+   column.resizingMask = NSTableColumnAutoresizingMask;
    [self.tableView addTableColumn:column];
+   self.tableView.columnAutoresizingStyle = NSTableViewUniformColumnAutoresizingStyle;
 
-   self.scrollView.documentView = self.tableView;
-   [self.view addSubview:self.scrollView];
+   [self.view addSubview:self.tableView];
 
    self.previewLabel = [NSTextField labelWithString:@"Try it out!"];
    self.previewLabel.translatesAutoresizingMaskIntoConstraints = NO;
@@ -107,18 +99,19 @@
 }
 
 - (void)setupLayouts {
+   NSInteger rows = [self numberOfRowsInTableView:self.tableView];
+   CGFloat tableHeight = rows * (self.tableView.rowHeight + self.tableView.intercellSpacing.height);
+
    [NSLayoutConstraint activateConstraints:@[
       [self.headerView.topAnchor constraintEqualToAnchor:self.view.topAnchor],
       [self.headerView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
       [self.headerView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-      [self.headerView.heightAnchor constraintEqualToConstant:200],
+      [self.headerView.heightAnchor constraintEqualToConstant:150],
 
-      [self.scrollView.topAnchor constraintEqualToAnchor:self.headerView.bottomAnchor],
-      [self.scrollView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
-      [self.scrollView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
-      // [self.scrollView.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
-      // [self.scrollView.bottomAnchor constraintEqualToAnchor:self.dockPreview.topAnchor],
-      [self.scrollView.bottomAnchor constraintEqualToAnchor:self.previewLabel.topAnchor constant:-8],
+      [self.tableView.topAnchor constraintEqualToAnchor:self.headerView.bottomAnchor],
+      [self.tableView.leadingAnchor constraintEqualToAnchor:self.view.leadingAnchor],
+      [self.tableView.trailingAnchor constraintEqualToAnchor:self.view.trailingAnchor],
+      [self.tableView.heightAnchor constraintEqualToConstant:tableHeight],
 
       [self.previewLabel.centerXAnchor constraintEqualToAnchor:self.view.centerXAnchor],
       [self.previewLabel.bottomAnchor constraintEqualToAnchor:self.dockPreview.topAnchor constant:2],
@@ -128,6 +121,8 @@
       [self.dockPreview.bottomAnchor constraintEqualToAnchor:self.view.bottomAnchor],
       [self.dockPreview.heightAnchor constraintEqualToConstant:110],
    ]];
+
+   self.preferredContentSize = NSMakeSize(420, 200 + tableHeight + 32 + 110);
 }
 
 - (void)addSubviews {
@@ -169,7 +164,7 @@
    SettingsCell *cell = [tableView makeViewWithIdentifier:tableColumn.identifier owner:self];
    
    if (!cell) {
-      cell = [[SettingsCell alloc] initWithFrame:NSMakeRect(0, 0, tableView.bounds.size.width, 32)];
+      cell = [[SettingsCell alloc] initWithFrame:NSMakeRect(0, 0, tableColumn.width, 32)];
       cell.identifier = tableColumn.identifier;
    }
    
