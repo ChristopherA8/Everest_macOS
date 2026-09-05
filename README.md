@@ -15,7 +15,7 @@
 
 ## Preview
 <p align="center">
-	<img src="https://github.com/user-attachments/assets/dfa57017-b862-4a68-94f3-b90f83c99ee7" />
+	<img width="400" src="https://github.com/user-attachments/assets/dfa57017-b862-4a68-94f3-b90f83c99ee7" />
 	<img width="402.6" height="313" src="https://github.com/user-attachments/assets/11775d13-48c9-4c18-bba0-adf1dd4b7cb6" />
 </p>
 
