@@ -79,7 +79,7 @@ install: $(BUILD_DIR)/$(DYLIB_NAME)
 	@if [ -f $(OPTIONS_SOURCE) ]; then \
 		sudo cp $(OPTIONS_SOURCE) $(OPTIONS_DEST); \
 		sudo chmod 644 $(OPTIONS_DEST); \
-		echo "Installed $(DYLIB_NAME) and whitelist"; \
+		echo "Installed $(DYLIB_NAME) and options"; \
 	else \
 		echo "Warning: $(OPTIONS_SOURCE) not found"; \
 		echo "Installed $(DYLIB_NAME)"; \
