@@ -14,8 +14,7 @@ int main(int argc, const char * argv[]) {
 
         MainWindow *window = [[MainWindow alloc] initWithContentRect:CGRectMake(200, 800, 100, 100)];
         
-        [window setOpaque:NO];
-        [window setBackgroundColor:[NSColor clearColor]];
+        [window setBackgroundColor:[NSColor colorWithRed: 0.04 green: 0.04 blue: 0.04 alpha: 1.00]];
         // [window setTitle:@"Everest Settings"];
         [window setLevel:NSNormalWindowLevel];
         [window setCollectionBehavior:NSWindowCollectionBehaviorDefault];

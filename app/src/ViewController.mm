@@ -22,10 +22,6 @@
       [[SettingsItem alloc] initWithTitle:@"Enabled" enabled:[dict[@"Enabled"] boolValue]],
    ];
 
-   self.blurView = [[BlurView alloc] initWithFrame:self.view.bounds];
-   self.blurView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
-   [self.view addSubview:self.blurView];
-
    self.headerView = [[SettingsHeaderView alloc] init];
    self.headerView.translatesAutoresizingMaskIntoConstraints = NO;
    [self.view addSubview:self.headerView];
