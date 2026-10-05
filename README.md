@@ -2,7 +2,7 @@
 	<source media="(prefers-color-scheme: light)" srcset="https://repo.chr1s.dev/assets/Everest/everest_dark-min.png">
 	<img align="left" height="120" src="https://repo.chr1s.dev/assets/Everest/everest_light-min.png" alt="Everest logo" style="float: left;"/>
 </picture>
-<h3 align="right">App launch animations for MacOS, <br>built for Ammonia</h3>
+<h3 align="right">App launch animations for MacOS, <br>built for <a href="https://github.com/CoreBedtime/playground">Playground</a></h3>
 
 <p align="right" >
   <strong><a href="https://github.com/ChristopherA8/everest/graphs/contributors">Contributors</a></strong>
@@ -15,8 +15,8 @@
 
 ## Preview
 <p align="center">
-	<img src="https://github.com/user-attachments/assets/dfa57017-b862-4a68-94f3-b90f83c99ee7" />
-	<img width="302" height="278" src="https://github.com/user-attachments/assets/4add66a1-0558-4953-81fd-d7a922ea85b1" />
+	<img width="400" src="https://github.com/user-attachments/assets/dfa57017-b862-4a68-94f3-b90f83c99ee7" />
+	<img width="402.6" height="313" src="https://github.com/user-attachments/assets/11775d13-48c9-4c18-bba0-adf1dd4b7cb6" />
 </p>
 
 ## Installation - Plugin Playground
@@ -52,8 +52,6 @@
 
 ## In Progress
 <ul>
-	<li>More Animations Coming</li>
-	<li>Preferences UI</li>
 	<li>.pkg for friendlier install process</li>
 </ul>
 <br>
