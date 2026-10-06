@@ -1,3 +1,6 @@
+
+
+
 <picture>
 	<source media="(prefers-color-scheme: light)" srcset="https://repo.chr1s.dev/assets/Everest/everest_dark-min.png">
 	<img align="left" height="120" src="https://repo.chr1s.dev/assets/Everest/everest_light-min.png" alt="Everest logo" style="float: left;"/>
@@ -14,10 +17,21 @@
 <div class="clear"></div>
 
 ## Preview
-<p align="center">
-	<img width="400" src="https://github.com/user-attachments/assets/dfa57017-b862-4a68-94f3-b90f83c99ee7" />
-	<img width="402.6" height="313" src="https://github.com/user-attachments/assets/11775d13-48c9-4c18-bba0-adf1dd4b7cb6" />
-</p>
+<table align="center">
+	<tr>
+		<td>
+			<img width="400" src="https://github.com/user-attachments/assets/5ada43e6-f56a-4b78-923a-88f0fbb7e472" />
+		</td>
+		<td rowspan="2">
+			<img width="400" src="https://github.com/user-attachments/assets/d8d47a36-befc-4c3e-b25a-41daac9a51ee" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<img width="400" src="https://github.com/user-attachments/assets/22013341-40eb-49e8-afa4-927ea931a7ce" />
+		</td>
+	</tr>
+</table>
 
 ## Installation - Plugin Playground
 <ol>
