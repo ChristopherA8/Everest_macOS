@@ -20,6 +20,7 @@
 
    self.settingsOptions = @[
       [[SettingsItem alloc] initWithTitle:@"Enabled" enabled:[dict[@"Enabled"] boolValue]],
+      [[SettingsItem alloc] initWithTitle:@"Hover" enabled:[dict[@"Hover"] boolValue]],
    ];
 
    self.headerView = [[SettingsHeaderView alloc] init];
@@ -55,6 +56,7 @@
 
    //###################
    self.dockPreview = [[DockPreviewView alloc] initWithFrame:NSZeroRect];
+   self.dockPreview.plistPath = self.plistPath;
    self.dockPreview.translatesAutoresizingMaskIntoConstraints = NO;
 
    NSString *path = self.plistPath;
@@ -88,6 +90,7 @@
    if (!dict) {
       NSDictionary *dict = @{
          @"Enabled": @1,
+         @"Hover": @0,
          @"Animation": @0
       };
       [dict writeToFile:self.plistPath atomically:YES];

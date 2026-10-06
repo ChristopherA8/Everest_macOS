@@ -9,6 +9,8 @@ static const CGFloat kDockPad  = 12.0;
 @interface DockPreviewView ()
 @property (nonatomic, strong) CALayer *dockBackground;
 @property (nonatomic, strong) NSArray<CALayer *> *iconLayers;
+@property (nonatomic, strong) NSTrackingArea *trackingArea;
+@property (nonatomic, weak)   CALayer *hoveredLayer;
 @end
 
 @implementation DockPreviewView
@@ -56,6 +58,8 @@ static const CGFloat kDockPad  = 12.0;
    return icons;
 }
 
+#pragma mark - Layout
+
 - (void)layout {
    [super layout];
 
@@ -85,13 +89,66 @@ static const CGFloat kDockPad  = 12.0;
    [CATransaction commit];
 }
 
-- (void)mouseDown:(NSEvent *)event {
+#pragma mark - Hit testing / animation
+
+- (CALayer *)iconLayerAtEvent:(NSEvent *)event {
    NSPoint p = [self convertPoint:event.locationInWindow fromView:nil];
    for (CALayer *l in self.iconLayers) {
-      if (CGRectContainsPoint(l.frame, p)) {
-         NSInteger index = self.animationProvider ? self.animationProvider() : 0;
-         ApplyDockAnimation(l, index);
-         return;
+      if (CGRectContainsPoint(l.frame, p)) return l;
+   }
+   return nil;
+}
+
+- (void)playAnimationOnLayer:(CALayer *)layer {
+   NSInteger index = self.animationProvider ? self.animationProvider() : 0;
+   ApplyDockAnimation(layer, index);
+}
+
+#pragma mark - Tracking area (hover)
+
+- (void)updateTrackingAreas {
+   [super updateTrackingAreas];
+
+   if (self.trackingArea) {
+      [self removeTrackingArea:self.trackingArea];
+   }
+
+   NSTrackingAreaOptions options = NSTrackingMouseEnteredAndExited
+                                 | NSTrackingMouseMoved
+                                 | NSTrackingActiveAlways
+                                 | NSTrackingInVisibleRect;
+   self.trackingArea = [[NSTrackingArea alloc] initWithRect:NSZeroRect
+                                                    options:options
+                                                      owner:self
+                                                   userInfo:nil];
+   [self addTrackingArea:self.trackingArea];
+}
+
+- (void)mouseMoved:(NSEvent *)event {
+   CALayer *hit = [self iconLayerAtEvent:event];
+   if (hit == self.hoveredLayer) return;   // still on the same icon (or still on none)
+
+   self.hoveredLayer = hit;
+   if (hit) {
+      NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:self.plistPath];
+      if ([dict[@"Hover"] isEqualToNumber:@1]) {
+         [self playAnimationOnLayer:hit];
+      }
+   }
+}
+
+- (void)mouseExited:(NSEvent *)event {
+   self.hoveredLayer = nil;   // re-arm so re-entering an icon animates again
+}
+
+#pragma mark - Click
+
+- (void)mouseDown:(NSEvent *)event {
+   CALayer *hit = [self iconLayerAtEvent:event];
+   if (hit) {
+      NSDictionary *dict = [NSDictionary dictionaryWithContentsOfFile:self.plistPath];
+      if ([dict[@"Enabled"] isEqualToNumber:@1]) {
+         [self playAnimationOnLayer:hit];
       }
    }
 }
